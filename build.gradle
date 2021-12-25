@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+}
+group 'dev.petrus'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.8.1'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+dependencies {
+    implementation('org.hibernate:hibernate-core:5.4.30.Final')
+
+    //SQLite
+    implementation('org.xerial:sqlite-jdbc:3.36.0.2')
+    implementation('com.github.evernife:sqlite-dialect:master')
+
+    //MySQL && MariaDB
+    implementation 'mysql:mysql-connector-java:8.0.25'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.2-rc'
+
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    //JUnit
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    //Commons IO
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
+}
+
+test {
+    useJUnitPlatform()
+}
